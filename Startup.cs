@@ -37,6 +37,9 @@ namespace SignalR_Chat
 
             app.UseCors("CorsPolicy");
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chat");

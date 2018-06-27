@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.1" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="cd ./Angular&#xD;&#xA;npm install" />
+  </Target>
+
 </Project>

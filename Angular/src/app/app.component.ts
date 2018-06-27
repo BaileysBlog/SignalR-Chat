@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     this.nick = window.prompt('Your name:', 'Bailey');
 
     let connection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5000/chat")
+      .withUrl("/chat")
       .build();
     
 
