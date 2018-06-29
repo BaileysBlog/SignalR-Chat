@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HubConnectionBuilder } from '@aspnet/signalr';
+import { HubConnectionBuilder, HubConnection } from '@aspnet/signalr';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,34 +8,38 @@ import { HubConnectionBuilder } from '@aspnet/signalr';
 export class AppComponent implements OnInit {
   
   
-  
+  connection: HubConnection;
   nick = '';
   message = '';
-  messages: string[] = [];
+  messages = [];
 
   ngOnInit()
   {
-    this.nick = window.prompt('Your name:', 'Bailey');
+    this.nick = "Bailey"//window.prompt('Your name:', 'Bailey');
 
-    let connection = new HubConnectionBuilder()
-      .withUrl("/chat")
+    this.connection = new HubConnectionBuilder()
+      .withUrl("http://localhost:5000/chat")
       .build();
     
 
-    connection.on("sendToAll", (msg: any) =>
+    this.connection.on("sendToAll", (msg: any) =>
     {
       console.log(msg);
-      this.messages.push(msg.content);
+      this.messages.push(msg);
     });
 
-    connection.start().then(() =>
+    this.connection.start().then(() =>
     {
-      connection.invoke("sendToAll", "Hi");
+      this.SendMessage(`User ${this.nick} connected.`);
     }).catch((err) =>
     { 
       console.log(err);
     });
+  }
 
+  SendMessage(msg: any): void
+  {
+    this.connection.invoke("sendToAll", msg);
   }
 
 }

@@ -22,7 +22,7 @@ namespace SignalRChat.Hubs
             //1-Store new message in the database and return it's id
             //2-Search the database for a user that created that message
             //3-Return a complete message object that will be used to send out to everyone
-            return new Message(1, await GetUserByConnection(ConnId), "Test Message", DateTime.Now);
+            return new Message(1, await GetUserByConnection(ConnId), Content, DateTime.Now);
         }
 
         private async Task<User> GetUserByConnection(String ConnId)

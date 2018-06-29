@@ -21,7 +21,8 @@ namespace SignalR_Chat
             services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder =>
             {
-                builder.AllowAnyMethod().AllowAnyHeader()
+                builder.AllowAnyMethod()
+                       .AllowAnyHeader()
                        .WithOrigins("http://localhost:4200")
                        .AllowCredentials();
             }));
